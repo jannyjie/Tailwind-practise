@@ -1,17 +1,23 @@
 <template>
   <div class="work">
+    <MenuBtn/>
     <h1>Work </h1>
-    <Test/>
+    <MenuSlid/>
   </div>
 </template>
 <script>
-// @ is an alias to /src
-import Test from "@/components/Test.vue";
-
+// import { onMounted } from "vue";
+import { useStore } from "vuex";
+import MenuBtn from "../components/MenuBtn.vue";
+import MenuSlid from "../components/MenuSlid.vue";
 export default {
-  name: "HomeView",
   components: {
-    Test,
+    MenuBtn,
+    MenuSlid,
+  },
+  setup() {
+    const store = useStore();
+    return {};
   },
 };
 </script>

@@ -8,9 +8,8 @@ module.exports = {
     parser: 'babel-eslint',
   },
   extends: [
-    '@nuxtjs',
     'plugin:prettier/recommended',
-    'plugin:nuxt/recommended',
+    'plugin:/recommended',
   ],
   plugins: [],
   // add your custom rules here
@@ -30,6 +29,5 @@ module.exports = {
         semi: true,
       },
     ],
-    camelcase: 'off',
   },
 };

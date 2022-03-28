@@ -10,7 +10,7 @@ axios.interceptors.request.use(config => {
 })
 
 function getName() {
-    return axios.get(`https://vue-lessons-api.herokuapp.com/courses/listd`)
+    return axios.get(`https://vue-lessons-api.herokuapp.com/courses/list`)
 }
 
 export {

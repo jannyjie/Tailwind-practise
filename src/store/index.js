@@ -1,26 +1,66 @@
 import { createStore } from "vuex";
-
+import axios from "axios";
+// import { apiGetPhotoRequest } from "../api";
+// work menu 開關寫在這
+import Auth from "./Auth";
 export default createStore({
   state: {
-    isOpen: false,
+    photoArr: [],
+    idx: 0,
+    isLoad: false,
   },
-  getters: {
-    isOpen(state){
-      return state.isOpen;
+  actions: {
+    handInit({commit}){
+      console.log(1);
+      return axios.get('https://vue-lessons.herokuapp.com/photo/list').then((res)=> {
+        commit('init', res.data);
+        console.log(2);
+        return res.data;
+      });
+    },
+    handLoadStete({commit}, bool){
+      commit('loadStete', bool)
+    },
+    handAdd({commit}){
+      commit('Add');
+    },
+    handRemove({commit}){
+      commit('Remove');
     }
   },
   mutations: {
-    // 修改
-    handMenuOpenState(state, bool){
-      state.isOpen = bool;
+    init(state, payload){
+      state.photoArr = payload;
+      console.log(state.photoArr);
+    },
+    loadStete(state, bool){
+      state.isLoad = bool;
+    },
+    Add(state){
+      state.idx++
+      if(state.idx = state.photoArr.length - 1){
+        state.idx = 0;
+      }
+    },
+    Remove(state){
+      state.idx--
+      if(state.idx < 0){
+        state.idx = state.photoArr.length - 1
+      }
     }
   },
-  actions: {
-    // 觸發mutations
-    handMenuOpen(context){
-      const bool = !context.state.isOpen;
-      context.commit('handMenuOpenState', bool);
-    }
+  getters: {
+    isLoad(state) {
+      return state.isLoad;
+    },
+    photoArr(state) {
+      return state.photoArr;
+    },
+    idx(state) {
+      return state.idx;
+    },
   },
-  modules: {},
+  modules: {
+    Auth,
+  },
 });

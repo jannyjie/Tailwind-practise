@@ -1,6 +1,6 @@
 import { createStore } from "vuex";
 import axios from "axios";
-// import { apiGetPhotoRequest } from "../api";
+import { apiGetPhotoRequest } from "../api";
 // work menu 開關寫在這
 import Auth from "./Auth";
 export default createStore({
@@ -10,14 +10,32 @@ export default createStore({
     isLoad: false,
   },
   actions: {
-    handInit({commit}){
-      console.log(1);
-      return axios.get('https://vue-lessons.herokuapp.com/photo/list').then((res)=> {
+    async handInit({commit}){
+      try{
+        console.log(1);
+        const res = await apiGetPhotoRequest();
         commit('init', res.data);
-        console.log(2);
         return res.data;
-      });
+      } catch(error){
+        console.error(error);
+        alert(error.error);
+        // console.error(error.response.data);
+      }
     },
+    // handInit({commit}){
+    //   console.log(1);
+    //   const res = apiGetPhotoRequest();
+    //   res.then(response=> {
+    //     console.log(2);
+    //     commit('init', response.data);
+    //     return response.data;
+    //   })
+    //   // return axios.get('https://vue-lessons.herokuapp.com/photo/list').then((res)=> {
+    //   //   commit('init', res.data);
+    //   //   console.log(2);
+    //   //   return res.data;
+    //   // });
+    // },
     handLoadStete({commit}, bool){
       commit('loadStete', bool)
     },
